@@ -52,7 +52,7 @@ class TestBus(unittest.TestCase):
         self.bus.empty()
         self.assertEqual(0, self.bus.passenger_count())
 
-    @unittest.skip("Delete this line to run the test")
+    # @unittest.skip("Delete this line to run the test")
     def test_can_pick_up_passenger_from_bus_stop(self):
         person_1 = Person("Guido van Rossum", 64)
         person_2 = Person("Carol Willing", 50)
@@ -66,7 +66,7 @@ class TestBus(unittest.TestCase):
         self.assertEqual(2, self.bus.passenger_count())
 
 
-    @unittest.skip("Delete this line to run the test")
+    # @unittest.skip("Delete this line to run the test")
     def test_can_pick_up_passenger_from_bus_stop_extended(self):
         person_1 = Person("Guido van Rossum", 64, 100, "Ocean Terminal")
         person_2 = Person("Carol Willing", 50, 75, "Gyle")
@@ -79,16 +79,19 @@ class TestBus(unittest.TestCase):
         self.bus.pick_up_from_stop(bus_stop)
         self.assertEqual(1, self.bus.passenger_count())
 
+
     def test_can_pick_up_passenger_from_bus_stop_extended_part2(self):
+        # This test checks a bus that already has passangers 
+        # doesn't exceed capactiy when it goes to the next bus stop
         person_1 = Person("Guido van Rossum", 64, 100, "Ocean Terminal")
-        person_2 = Person("Carol Willing", 50, 75, "Ocean Terminal")
+        person_2 = Person("Carol Willing", 50, 75, "Gyle")
         bus_stop = BusStop("Waverly Station")
         bus_stop.add_to_queue(person_1)
         bus_stop.add_to_queue(person_2)
 
-        # self.bus.pick_up_from_stop(bus_stop)
-        # self.assertEqual(1, self.bus.passenger_count())
-        # print("New Test")
+        self.bus.pick_up_from_stop(bus_stop)
+        self.assertEqual(1, self.bus.passenger_count())
+        
 
         person_3 = Person("Guido van Rossum", 64, 100, "Ocean Terminal")
         person_4 = Person("Carol Willing", 50, 75, "Ocean Terminal")
