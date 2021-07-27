@@ -9,6 +9,10 @@ class BusStop:
     def clear(self):
         self.queue.clear()
 
+    def remove_passanger(self,passanger):
+        self.queue.remove(passanger)
+
+
     def queue_length(self):
         return len(self.queue)
     

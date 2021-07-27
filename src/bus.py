@@ -16,7 +16,6 @@ class Bus:
         return len(self.passengers)
 
     def remaining_capacity(self):
-        """TODO"""
         return self.capacity - len(self.passengers)
 
     def pick_up(self, passenger):
@@ -34,25 +33,18 @@ class Bus:
         self.total_cash += self.price
     
     def pick_up_from_stop(self, bus_stop):
-        travelers = []
-        for person in bus_stop.queue:
-            if not person.destination: 
-                self.passengers.append(person)                
-            elif person.destination != self.destination or person.cash >= self.price:
+        full_queue = bus_stop.queue.copy()
+        for person in full_queue:
+            if not person.destination and (self.remaining_capacity() > 0): 
+                self.passengers.append(person)               
+            elif person.destination != self.destination or person.cash <= self.price or self.remaining_capacity() == 0:
                 continue
             else:
-                travelers.append(person)
                 self.payment(person)
-
-        if len(travelers) <= self.remaining_capacity():
-                self.passengers.extend(travelers)
-        else:
-            self.passengers.extend(travelers[0:self.remaining_capacity()])
-
-    # def bus_journey(self):
-    #     self.pick_up_from_stop()
-
-            
+                self.passengers.append(person) 
+                bus_stop.remove_passanger(person)
+    
+        
 
         
     
